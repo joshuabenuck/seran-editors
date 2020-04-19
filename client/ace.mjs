@@ -10,7 +10,7 @@ export class Ace extends HTMLElement {
         let script = document.createElement("script")
         script.setAttribute("type", "text/javascript")
         script.onload = async (e) => {
-            ace.config.set('basePath', '/')
+            ace.config.set('basePath', '/ace')
             let editor = ace.edit(pre, {
                 theme: "ace/theme/twilight",
                 mode: "ace/mode/javascript",
@@ -19,7 +19,7 @@ export class Ace extends HTMLElement {
             })
             editor.focus()
         }
-        script.setAttribute("src", "/ace.js")
+        script.setAttribute("src", "/ace/ace.js")
         this.appendChild(script)
     }
 }

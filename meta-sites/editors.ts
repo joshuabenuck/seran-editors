@@ -9,6 +9,10 @@ handler.route("^/cm/", (req) => {
   wiki.serveResource(req, import.meta.url, `/client/${req.url}`)
 })
 
+handler.route("^/ace/", (req) => {
+  wiki.serveResource(req, import.meta.url, `/client/${req.url}`)
+})
+
 handler.page(wiki.welcomePage("[[SeranWiki]]", "[[Editors]]"))
 handler.page(wiki.page("Editors", [
   wiki.paragraph("[[CM]]"),
@@ -16,3 +20,4 @@ handler.page(wiki.page("Editors", [
 ]))
 handler.page(wiki.page("CM", [ wiki.item("cm", {}) ]))
 handler.page(wiki.page("Ace", [ wiki.item("ace", {}) ]))
+handler.plugins(import.meta.url, "client")
