@@ -10,14 +10,27 @@ export class Ace extends HTMLElement {
         let script = document.createElement("script")
         script.setAttribute("type", "text/javascript")
         script.onload = async (e) => {
+            let VimAPI = ace.require("ace/keyboard/vim")
             ace.config.set('basePath', '/ace')
-            let editor = ace.edit(pre, {
-                theme: "ace/theme/twilight",
+            this.editor = ace.edit(pre, {
                 mode: "ace/mode/javascript",
                 keyboardHandler: "ace/keyboard/vim",
                 maxLines: 30
             })
-            editor.focus()
+            this.editor.commands.addCommand({
+                name: 'save',
+                bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
+                exec: async (editor) => {
+                    let results = await fetch("/save", {
+                        method: "POST",
+                        body: editor.getValue()
+                    })
+                    console.log(await results.json())
+                },
+                readOnly: true // false if this command should not apply in readOnly mode
+            })
+            this.editor.focus()
+            console.log("vim", VimAPI)
         }
         script.setAttribute("src", "/ace/ace.js")
         this.appendChild(script)
