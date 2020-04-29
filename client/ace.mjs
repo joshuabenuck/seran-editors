@@ -4,7 +4,7 @@ export class Ace extends HTMLElement {
         this.inited = true
         let pre = document.createElement("div")
         pre.setAttribute("id", "editor")
-        pre.textContent = "console.log('testing')"
+        fetch("/load").then((r) => r.text()).then((t) => pre.textContent = t)
         this.appendChild(pre)
 
         let script = document.createElement("script")
