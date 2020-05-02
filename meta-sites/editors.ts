@@ -41,7 +41,7 @@ handler.route("^/save", async (req, _system) => {
 handler.items("Run", async (req) => {
   let path = join(req.site.root, "ace.js")
   try {
-    let module = await import(path)
+    let module = await import(path + `?time=${new Date().getTime()}`)
     if (!module.serve) {
       return ["error: no serve function in ace.js"]
     }
